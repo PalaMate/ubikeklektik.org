@@ -261,7 +261,7 @@ figcaption {
 
 .navbar {
   position: absolute;
-  display: none;
+  display: block;
   width: 100%;
   height: 60px;
   -webkit-box-pack: center;
