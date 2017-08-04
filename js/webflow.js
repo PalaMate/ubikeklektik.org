@@ -2542,5 +2542,5 @@
  * Webflow: Interactions: Init
  */
 Webflow.require('ix').init([
-  {"slug":"nav-scroll","name":"Nav Scroll","value":{"style":{},"triggers":[{"type":"scroll","selector":".navbar-scroll","preserve3d":true,"stepsA":[{"transition":"transform 500ms ease 0","x":"0px","y":"-65px","z":"0px"}],"stepsB":[{"display":"block","transition":"transform 500ms ease 0","x":"0px","y":"0px","z":"0px"}]}]}}
+  {"slug":"nav-scroll","name":"Nav Scroll","value":{"style":{},"triggers":[{"type":"scroll","selector":".navbar-scroll","preserve3d":true,"stepsA":[{"display":"none","transition":"transform 500ms ease 0","x":"0px","y":"-65px","z":"0px"}],"stepsB":[{"display":"block","transition":"transform 500ms ease 0","x":"0px","y":"0px","z":"0px"}]}]}}
 ]);

@@ -851,6 +851,12 @@ figcaption {
 .navlink {
   padding-right: 12.5px;
   padding-left: 12.5px;
+  -webkit-transition: opacity 500ms ease;
+  transition: opacity 500ms ease;
+}
+
+.navlink:hover {
+  opacity: 0.8;
 }
 
 .navbar-scroll {
