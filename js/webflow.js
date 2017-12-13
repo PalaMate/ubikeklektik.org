@@ -8,7 +8,69 @@
 (function () {
   'use strict';
 
-  function __commonjs(fn, module) { return module = { exports: {} }, fn(module, module.exports), module.exports; }
+  var __commonjs_global = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : this;
+  function __commonjs(fn, module) { return module = { exports: {} }, fn(module, module.exports, __commonjs_global), module.exports; }
+
+
+  var babelHelpers = {};
+  babelHelpers.typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  };
+
+  babelHelpers.defineProperty = function (obj, key, value) {
+    if (key in obj) {
+      Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      });
+    } else {
+      obj[key] = value;
+    }
+
+    return obj;
+  };
+
+  babelHelpers.extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  babelHelpers.objectWithoutProperties = function (obj, keys) {
+    var target = {};
+
+    for (var i in obj) {
+      if (keys.indexOf(i) >= 0) continue;
+      if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+      target[i] = obj[i];
+    }
+
+    return target;
+  };
+
+  babelHelpers.toConsumableArray = function (arr) {
+    if (Array.isArray(arr)) {
+      for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
+
+      return arr2;
+    } else {
+      return Array.from(arr);
+    }
+  };
+
+  babelHelpers;
 
   /*!
    * tram.js v0.8.2-global
@@ -576,9 +638,8 @@
   };
 
   if (Webflow.env()) {
-    // Webflow.location - Re-route location change to trigger an event
-    Webflow.location = function(url) {
-      window.dispatchEvent(new CustomEvent('__wf_location', { detail: url }));
+    // Ignore redirects inside a Webflow design/edit environment
+    Webflow.location = function() {
     };
   }
 
@@ -1215,9 +1276,26 @@
     }
 
     function init() {
+
+      initIX1Engine();
+
+      // Need init IXEvents regardless if IX1 events exist since
+      // IXEvents _also_ dispatch IX2 events.
+
+      // Trigger queued events, must happen after init
+      IXEvents.init();
+
+      // Trigger a redraw to ensure all IX intros play
+      Webflow.redraw.up();
+    }
+    
+    function initIX1Engine() {
       // Build each element's interaction keying from data attribute
       var els = $('[data-ix]');
-      if (!els.length) return;
+      if (!els.length) {
+        return;
+      }
+
       els.each(teardown);
       els.each(build);
 
@@ -1230,12 +1308,6 @@
       // Handle loads or readys if they exist
       if (loads.length) Webflow.load(runLoads);
       if (readys.length) setTimeout(runReadys, readyDelay);
-
-      // Trigger queued events, must happen after init
-      IXEvents.init();
-
-      // Trigger a redraw to ensure all IX intros play
-      Webflow.redraw.up();
     }
 
     function build(i, el) {
@@ -1668,13 +1740,59 @@
   });
   });
 
+  var webflowIx2Events = __commonjs(function (module) {
+  'use strict';
+  var IXEvents = require$$0$2;
+
+  function dispatchCustomEvent(element, eventName) {
+    var event = document.createEvent('CustomEvent');
+    event.initCustomEvent(eventName, true, true, null);
+    element.dispatchEvent(event);
+  }
+
+  /**
+   * Webflow: IX Event triggers for other modules
+   */
+
+  var $ = window.jQuery;
+  var api = {};
+  var namespace = '.w-ix';
+
+  var eventTriggers = {
+    reset: function(i, el) {
+      IXEvents.triggers.reset(i, el);
+    },
+    intro: function(i, el) {
+      IXEvents.triggers.intro(i, el);
+      dispatchCustomEvent(el, 'COMPONENT_ACTIVE');
+    },
+    outro: function(i, el) {
+      IXEvents.triggers.outro(i, el);
+      dispatchCustomEvent(el, 'COMPONENT_INACTIVE');
+    }
+  };
+
+  api.triggers = {};
+
+  api.types = {
+    INTRO: 'w-ix-intro' + namespace,
+    OUTRO: 'w-ix-outro' + namespace
+  };
+
+  $.extend(api.triggers, eventTriggers);
+
+  module.exports = api;
+  });
+
+  var require$$0$3 = (webflowIx2Events && typeof webflowIx2Events === 'object' && 'default' in webflowIx2Events ? webflowIx2Events['default'] : webflowIx2Events);
+
   var webflowNavbar = __commonjs(function (module) {
   /**
    * Webflow: Navbar component
    */
 
   var Webflow = require$$0;
-  var IXEvents = require$$0$2;
+  var IXEvents = require$$0$3;
 
   Webflow.define('navbar', module.exports = function($, _) {
     var api = {};
@@ -2184,7 +2302,7 @@
    */
 
   var Webflow = require$$0;
-  var IXEvents = require$$0$2;
+  var IXEvents = require$$0$3;
 
   Webflow.define('tabs', module.exports = function($) {
     var api = {};
@@ -2200,6 +2318,7 @@
     var linkCurrent = 'w--current';
     var tabActive = 'w--tab-active';
     var ix = IXEvents.triggers;
+
     var inRedraw = false;
 
     // -----------------------------------

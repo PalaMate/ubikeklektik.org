@@ -261,7 +261,7 @@ figcaption {
 
 .navbar {
   position: absolute;
-  display: block;
+  display: none;
   width: 100%;
   height: 60px;
   -webkit-box-pack: center;
@@ -646,11 +646,9 @@ figcaption {
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  background-image: -webkit-linear-gradient(0deg, hsla(35, 79%, 70%, .9), hsla(10, 86%, 74%, .9)), url('../images/hero_bg-min.jpg');
-  background-image: linear-gradient(90deg, hsla(35, 79%, 70%, .9), hsla(10, 86%, 74%, .9)), url('../images/hero_bg-min.jpg');
-  background-position: 0px 0px, 0px 0px;
-  background-size: auto, cover;
-  background-attachment: scroll, fixed;
+  background-image: url('../images/2018_epres-bg_1600.jpg');
+  background-position: 0px 0px;
+  background-size: cover;
 }
 
 .paragraph-wrapper {
@@ -676,7 +674,7 @@ figcaption {
 }
 
 .section {
-  display: block;
+  display: none;
   padding-top: 100px;
   padding-bottom: 0px;
 }
@@ -708,7 +706,7 @@ figcaption {
 }
 
 .heading-5 {
-  display: block;
+  display: none;
   max-width: 900px;
   margin-top: 0px;
   margin-right: auto;
@@ -767,6 +765,7 @@ figcaption {
 }
 
 .footer {
+  display: none;
   height: 300px;
   background-image: -webkit-linear-gradient(8deg, #efbd76, #f69885);
   background-image: linear-gradient(82deg, #efbd76, #f69885);
@@ -786,6 +785,7 @@ figcaption {
   display: -ms-flexbox;
   display: flex;
   width: 500px;
+  margin-bottom: 15vh;
   -webkit-justify-content: space-around;
   -ms-flex-pack: distribute;
   justify-content: space-around;
@@ -799,13 +799,13 @@ figcaption {
   background-color: #000;
   -webkit-transition: all 500ms ease;
   transition: all 500ms ease;
-  color: #efbd76;
+  color: #d0a0fa;
   font-size: 20px;
 }
 
 .button-cta:hover {
   background-color: #000;
-  color: #f69885;
+  color: #5e2f8d;
 }
 
 .icon-wrapper {
@@ -914,6 +914,10 @@ figcaption {
   color: #000;
   font-size: 15px;
   line-height: 1.5em;
+}
+
+.section-2 {
+  display: none;
 }
 
 @media (max-width: 991px) {
@@ -1028,7 +1032,7 @@ figcaption {
   .heading-6 {
     width: 90%;
     max-width: 100%;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.4em;
   }
   .button-3 {
