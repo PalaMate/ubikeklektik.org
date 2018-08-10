@@ -20,7 +20,7 @@ h2 {
   padding-left: 5px;
   background-image: none;
   font-family: 'Century Gothic', sans-serif;
-  color: #efbd76;
+  color: #9466c6;
   font-size: 30px;
   line-height: 1.4em;
   font-weight: 700;
@@ -30,7 +30,7 @@ h3 {
   margin-top: 20px;
   margin-bottom: 10px;
   font-family: 'Century Gothic', sans-serif;
-  color: #d6d6d6;
+  color: #9466c6;
   font-size: 30px;
   line-height: 1.4em;
   font-weight: 400;
@@ -92,8 +92,8 @@ img {
 strong {
   padding-right: 5px;
   padding-left: 5px;
-  background-image: -webkit-linear-gradient(5deg, #efbd76, #f69885);
-  background-image: linear-gradient(85deg, #efbd76, #f69885);
+  background-image: -webkit-linear-gradient(5deg, #d0a0fa, #55288f);
+  background-image: linear-gradient(85deg, #d0a0fa, #55288f);
   color: #000;
   font-weight: 400;
 }
@@ -101,7 +101,7 @@ strong {
 blockquote {
   margin-bottom: 10px;
   padding: 10px 20px;
-  border-left: 3px solid #efbd76;
+  border-left: 3px solid #9466c6;
   font-size: 19px;
   line-height: 1.6em;
 }
@@ -261,7 +261,7 @@ figcaption {
 
 .navbar {
   position: absolute;
-  display: none;
+  display: fixed;
   width: 100%;
   height: 60px;
   -webkit-box-pack: center;
@@ -623,8 +623,8 @@ figcaption {
   margin-bottom: 60px;
   padding-top: 0px;
   padding-bottom: 13px;
-  background-image: -webkit-linear-gradient(0deg, #efbd76, #f69885);
-  background-image: linear-gradient(90deg, #efbd76, #f69885);
+  background-image: -webkit-linear-gradient(0deg, #d0a0fa, #55288f);
+  background-image: linear-gradient(90deg ,#d0a0fa, #55288f);
 }
 
 .hero {
@@ -674,7 +674,7 @@ figcaption {
 }
 
 .section {
-  display: none;
+  display: block;
   padding-top: 100px;
   padding-bottom: 0px;
 }
@@ -694,7 +694,7 @@ figcaption {
 
 .heading-4 {
   padding-left: 60px;
-  color: #f2ac7d;
+  color: #9466c6;
 }
 
 .image {
@@ -753,7 +753,7 @@ figcaption {
 }
 
 .link-2 {
-  border-bottom: 5px solid #efbd76;
+  border-bottom: 5px solid #55288f;
   -webkit-transition: all 500ms ease;
   transition: all 500ms ease;
   font-size: 25px;
@@ -761,14 +761,14 @@ figcaption {
 }
 
 .link-2:hover {
-  border-bottom-color: #f69885;
+  border-bottom-color: #d0a0fa;
 }
 
 .footer {
-  display: none;
+  display: block;
   height: 300px;
-  background-image: -webkit-linear-gradient(8deg, #efbd76, #f69885);
-  background-image: linear-gradient(82deg, #efbd76, #f69885);
+  background-image: -webkit-linear-gradient(8deg, #d0a0fa, #55288f);
+  background-image: linear-gradient(82deg, #d0a0fa, #55288f);
 }
 
 .footer-heading {
